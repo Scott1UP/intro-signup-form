@@ -27,16 +27,30 @@
       </div>
       
       <div class="form">
-        <input type="text" class="input" placeholder="First Name">
-        <input type="text" class="input" placeholder="Last Name">
-        <input type="email" class="input" placeholder="Email Address">
-        <input type="password" class="input" placeholder="Password">
-        <button class="primaryCTA" onclick="">Claim your free trial </button>
+        <div class="field">
+          <input type="text" class="input first-name" placeholder="First Name">
+          <p class="error-text disabled">First Name cannot be empty</p>
+        </div>
+        <div class="field">
+          <input type="text" class="input last-name" placeholder="Last Name">
+          <p class="error-text disabled">Last Name cannot be empty</p>
+        </div>
+        <div class="field">
+          <input type="email" class="input email" placeholder="Email Address">
+          <p class="error-text disabled">Looks like this is not an email</p>
+        </div>
+        <div class="field">
+          <input type="password" class="input password" placeholder="Password">
+          <p class="error-text disabled">Password cannot be empty</p>
+        </div>
+        
+        <button class="primaryCTA" onclick="submit">Claim your free trial</button>
         <h5 class="terms-text">By clicking the button, you are agreeing to our <span class="text-link">Terms and Services</span></h5>
       </div>
 
     </div>
 
   </section>
+  <script src="./index.js"></script>
 </body>
 </html>
