@@ -1,60 +1,34 @@
+// Select all of the input fields from the form
 const firstName = document.querySelector(".first-name");
 const lastName = document.querySelector(".last-name");
 const email = document.querySelector(".email");
 const password = document.querySelector(".password");
 
-firstName.addEventListener("blur", event => {
-    const regex = /^(\w+\S+)$/i;
-    const value = firstName.value.trim();
-    const errorMsg = firstName.parentElement.querySelector(".error-text");
+// Define a reusable function to handle input validation
+const validateInput = (inputElement, regex, errorMessageElement) => {
+    const value = inputElement.value.trim();
+    const errorMsg = errorMessageElement;
 
     if (!regex.test(value)) {
         errorMsg.classList.remove("disabled");
-        firstName.classList.add("error");
+        inputElement.classList.add("error");
     } else {
         errorMsg.classList.add("disabled"); 
-        firstName.classList.remove("error");
+        inputElement.classList.remove("error");
     }
-}); 
+}
 
-lastName.addEventListener("blur", event => {
-    const regex = /^(\w+\S+)$/i;
-    const value = lastName.value.trim();
-    const errorMsg = lastName.parentElement.querySelector(".error-text");
+// Define an array of objects representing input fields and their validation details
+const inputFields = [
+    { element: firstName, regex: /^(\w+\S+)$/i, errorElement: firstName.parentElement.querySelector(".error-text") },
+    { element: lastName, regex: /^(\w+\S+)$/i, errorElement: lastName.parentElement.querySelector(".error-text") },
+    { element: email, regex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, errorElement: email.parentElement.querySelector(".error-text") },
+    { element: password, regex: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, errorElement: password.parentElement.querySelector(".error-text") }
+];
 
-    if (!regex.test(value)) {
-        errorMsg.classList.remove("disabled");
-        lastName.classList.add("error");
-    } else {
-        errorMsg.classList.add("disabled"); 
-        lastName.classList.remove("error");
-    }
-});
-
-email.addEventListener("blur", event => {
-    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    const value = email.value.trim();
-    const errorMsg = email.parentElement.querySelector(".error-text");
-
-    if (!regex.test(value)) {
-        errorMsg.classList.remove("disabled");
-        email.classList.add("error");
-    } else {
-        errorMsg.classList.add("disabled"); 
-        email.classList.remove("error");
-    }
-}); 
-
-password.addEventListener("blur", event => {
-    const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    const value = password.value.trim();
-    const errorMsg = password.parentElement.querySelector(".error-text");
-
-    if (!regex.test(value)) {
-        errorMsg.classList.remove("disabled");
-        password.classList.add("error");
-    } else {
-        errorMsg.classList.add("disabled"); 
-        password.classList.remove("error");
-    }
+// Attach event listeners dynamically for each input field
+inputFields.forEach(input => {
+    input.element.addEventListener("blur", event => {
+        validateInput(input.element, input.regex, input.errorElement);
+    });
 });
